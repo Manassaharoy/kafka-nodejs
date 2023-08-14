@@ -26,7 +26,7 @@ app.post("/create-room", async (req, res) => {
   // Send room ID and expiry time to Kafka topic
   await producer.connect();
   await producer.send({
-    topic: "room-one",
+    topic: "room-two",
     messages: [
       {
         value: JSON.stringify({ roomId, roomExpiry, roomCreatedAt, deleteAt }),
@@ -37,9 +37,10 @@ app.post("/create-room", async (req, res) => {
   // Store room ID for deletion
   activeRooms.push(roomId);
 
-  console.log(
-    `room created: ${roomId}, roomCreatedAt ${roomCreatedAt}, deleteAt ${deleteAt}, hitted: ${new Date()}`
-  );
+
+
+  console.log(`Room created: roomId: ${roomId}, roomExpiry: ${roomExpiry}, roomCreatedAt: ${roomCreatedAt}, deleteAt: ${deleteAt}, hitted: ${new Date()}`);
+
   res.json({ message: "Room created", roomId, roomCreatedAt, deleteAt });
 });
 
@@ -55,14 +56,9 @@ app.post("/room-delete", (req, res) => {
   //     res.status(404).json({ message: `Room not found: ${roomId}` });
   //   }
 
-  console.log(
-    "room delete request for: ",
-    roomId,
-    roomExpiry,
-    roomCreatedAt,
-    deleteAt,
-    `hitted: ${new Date()}`
-  );
+
+  console.log(`Room deleted: roomId: ${roomId}, roomExpiry: ${roomExpiry}, roomCreatedAt: ${roomCreatedAt}, deleteAt: ${deleteAt}, hitted: ${new Date()}`);
+
   res.json({ message: `Room deleted: ${roomId}` });
 });
 

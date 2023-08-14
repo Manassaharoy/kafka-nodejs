@@ -36,7 +36,7 @@ const processRoomExpiry = async (message) => {
   console.log(`Room created: ${roomId}`);
 
   // Wait for the specified room expiry time
-  await new Promise((resolve) => setTimeout(resolve, roomExpiry));
+  // await new Promise((resolve) => setTimeout(resolve, roomExpiry));
 
   console.log(`Room expired: ${roomId}`);
 
@@ -52,7 +52,7 @@ const processRoomExpiry = async (message) => {
 const run = async () => {
   await consumer.connect();
   await consumer.subscribe({
-    topic: "room-one",
+    topic: "room-two",
     fromBeginning: true,
   });
 
